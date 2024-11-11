@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<button onclick="calc()">Click me</button>
+
+<p id="demo"></p>
+<div display="flex">
+    <label>Order Gems</label>
+    <input type="number" id="og"value="0"></input>
+  </div>
+<div display="flex">
+    <label>Chaos Gems</label>
+    <input type="number" id="cg" value="0"></input>
+  </div>
+  <div display="flex">
+    <label>Nature Gems</label>
+    <input type="number" id="ng"value="0"></input>
+  </div>
+<p>Legendary Heroes</p>
+
+<label>Scryre (Nature Melee) </label>
+<input type="number" id="v1"value="0"></input><label id="r1"></label><br>
+<label>Magnus (Order Ranged)</label>
+<input type="number" id="v2"value="0"></input><label id="r2"></label><br>
+<label>Kilgarrah (Chaos Melee)</label>
+<input type="number" id="v3"value="0"></input><label id="r3"></label><br>
+<label>Alucard (Chaos Ranged)</label>
+<input type="number" id="v4"value="0"></input><label id="r4"></label><br>
+<label>Rhaenis (Nature Ranged)</label>
+<input type="number" id="v5"value="0"></input><label id="r5"></label><br>
+<label>Milene (Order Ranged)</label>
+<input type="number" id="v6"value="0"></input><label id="r6"></label><br>
+
+<p>Epic Heroes</p>
+<label>Richard (Order Melee)</label>
+<input type="number" id="v7"value="0"></input><label id="r7"></label><br>
+
+<label>Salma (Chaos Ranged)</label>
+<input type="number" id="v8"value="0"></input><label id="r8"></label><br>
+
+<label>Empyrion (Nature Melee)</label>
+<input type="number" id="v9"value="0"></input><label id="r9"></label><br>
+
+<label>Vanessa (Order Ranged)</label>
+<input type="number" id="v10"value="0"></input><label id="r10"></label><br>
+
+<label>Gorro (Chaos Melee)</label>
+<input type="number" id="v11"value="0"></input><label id="r11"></label><br>
+
+<label>Celaeno (Nature Melee)</label>
+<input type="number" id="v12"value="0"></input><label id="r12"></label><br>
+
+<p>Rare Heroes</p>
+
+<label>Caleb (Chaos Melee)</label>
+<input type="number" id="v13"value="0"></input><label id="r13"></label><br>
+
+<label>Venomeus (Nature Ranged)</label>
+<input type="number" id="v14"value="0"></input><label id="r14"></label><br>
+
+<label>Felicia (Order Melee)</label>
+<input type="number" id="v15"value="0"></input><label id="r15"></label><br>
+
+<label>Daphne (Nature Ranged)</label>
+<input type="number" id="v16"value="0"></input><label id="r16"></label><br>
+
+<label>Sylvie (Order Ranged)</label>
+<input type="number" id="v17"value="0"></input><label id="r17"></label><br>
+
+<label>Infernis (Chaos Melee)</label>
+<input type="number" id="v18"value="0"></input><label id="r18"></label><br>
+
+<p>Common Heroes</p>
+
+<label>Evelyn (Chaos Ranged)</label>
+<input type="number" id="v19"value="0"></input><label id="r19"></label><br>
+
+<label>Genbu (Nature Ranged)</label>
+<input type="number" id="v20"value="0"></input><label id="r20"></label><br>
+
+<label>Celeste (Order Melee)</label>
+<input type="number" id="v21"value="0"></input><label id="r21"></label><br>
+
+<label>Zuul (Chaos Melee)</label>
+<input type="number" id="v22"value="0"></input><label id="r22"></label><br>
+
+<label>Surus (Nature Melee)</label>
+<input type="number" id="v23"value="0"></input><label id="r23"></label><br>
+
+<label>Bonny (Order Ranged)</label>
+<input type="number" id="v24"value="0"></input><label id="r24"></label><br>
+</div>
+
+<script>
+let rareArr = [5,5,5,5,5,5,5,4,4,4,4,4,4,3,3,3,3,3,3,2,2,2,2,2,2]
+let jewelArr = [0,1,2,3,3,1,2,2,3,1,2,3,1,3,1,2,1,2,3,3,1,2,3,1,2]
+function calc() {
+    let natureJewels = document.getElementById("ng").value
+    let orderJewels = document.getElementById("og").value
+    let chaosJewels = document.getElementById("cg").value
+    let mightInc = 0
+
+    let resArr = []
+    for (let i=1; i<25; i++){
+        resArr.push(cost(`v${i}`,rareArr[i], jewelArr[i])) 
+    }
+    let change = true
+    while(change){
+        change = false
+        resArr.sort((a,b)=> b[2]-a[2])
+        for (let i=0; i<24; i++){
+            if (resArr[i][0] == 0) continue
+            if (resArr[i][5] === 1 && resArr[i][0] <= natureJewels){
+                natureJewels -= resArr[i][0]
+                mightInc += resArr[i][1]
+                resArr[i] = cost2(resArr[i][4], resArr[i][6], resArr[i][5], resArr[i][3])
+                i = 24
+                change = true
+            }
+            else if (resArr[i][5] === 2 && resArr[i][0] <= orderJewels){
+                orderJewels -= resArr[i][0]
+                mightInc += resArr[i][1]
+                resArr[i] = cost2(resArr[i][4], resArr[i][6], resArr[i][5], resArr[i][3])
+                i = 24
+                change = true
+            }
+            else if (resArr[i][5] === 3 && resArr[i][0] <= chaosJewels){
+                chaosJewels -= resArr[i][0]
+                mightInc += resArr[i][1]
+                resArr[i] = cost2(resArr[i][4], resArr[i][6], resArr[i][5], resArr[i][3])
+                i = 24
+                change = true
+            }
+        }
+    }
+    resArr.sort((a,b)=> a[3].slice(1)-b[3].slice(1))
+    console.log(resArr)
+    for (let i=0; i<24; i++){
+        document.getElementById(`r${i+1}`).innerHTML = resArr[i][4] - 10
+    }
+    mightInc = parseInt(mightInc)
+    document.getElementById("demo").innerHTML = `Might is increased by ${mightInc}`
+
+
+}
+
+function cost(pos, rar, jewel){
+    lvl = document.getElementById(pos).value || 0
+    if (lvl == 0) return [0,0,0,pos,10,0,0]
+    let price = 0
+    let startMight = lvl ** 1.5
+    if (lvl > 999){
+        price = 650000
+        lvl += 10
+    }
+    else for (let i=0; i<10; i++){
+        let change =  + 8
+        price += (2*((lvl) ** 1.5)) + 8
+        lvl++
+    }
+    let endMight = lvl ** 1.5
+    let might = rar * (endMight-startMight)
+    return [price, might , might/price, pos, lvl, jewel,rar]
+}
+
+function cost2(lvl, rar, jewel,pos){
+    let price = 0
+    let startMight = lvl ** 1.5
+    if (lvl > 999){
+        price = 650000
+        lvl += 10
+    }
+    else for (let i=0; i<10; i++){
+        let change =  + 8
+        price += (2*((lvl) ** 1.5)) + 8
+        lvl++
+    }
+    let endMight = lvl ** 1.5
+    let might = rar * (endMight-startMight)
+    return [price, might , might/price, pos, lvl, jewel,rar]
+}
+</script>
+
+</body>
+</html>
