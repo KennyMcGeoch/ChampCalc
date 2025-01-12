@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <body>
+<p>This works on the assumption that power essence isn't a limiting factor. To use the calculator
+    you should enter the level of all vanguards. If you enter 0 it is assumed it isn't unlocked.
+     The hit the button for Calculate Might Increase to see the optimal way to level up vanguards. 
+     It also assumes level ups in increments of 10.
+</p>
 
-
-<button onclick="calc()">Click me</button>
+<button onclick="calc()">Calculate Might Increase</button>
 
 <p id="demo"></p>
 <div display="flex">
@@ -138,7 +142,7 @@ function calc() {
     resArr.sort((a,b)=> a[3].slice(1)-b[3].slice(1))
     console.log(resArr)
     for (let i=0; i<24; i++){
-        document.getElementById(`r${i+1}`).innerHTML = resArr[i][4] - 10
+        document.getElementById(`r${i+1}`).innerHTML = "Vanguard Target Level " + (resArr[i][4] - 10)
     }
     mightInc = parseInt(mightInc)
     document.getElementById("demo").innerHTML = `Might is increased by ${mightInc}`
